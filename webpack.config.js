@@ -8,7 +8,7 @@ module.exports = {
     devtool: 'eval-source-map',
     entry: [
         'babel-polyfill',
-        'webpack-dev-server/client?http://localhost:3000',
+        'webpack-dev-server/client?http://www.quiniela.com:6060/',
         'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
         path.join(__dirname, 'app/index.js')
@@ -18,17 +18,20 @@ module.exports = {
         filename: '[name].js',
         publicPath: '/'
     },
+    devServer: {
+        disableHostCheck: true
+    },
     plugins: [
         new HtmlWebpackPlugin({
-          template: 'app/index.tpl.html',
-          inject: 'body',
-          filename: 'index.html'
+            template: 'app/index.tpl.html',
+            inject: 'body',
+            filename: 'index.html'
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('development')
+            'process.env.NODE_ENV': JSON.stringify('development')
         })
     ],
     eslint: {

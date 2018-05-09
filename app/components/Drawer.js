@@ -7,7 +7,12 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class DrawerApp extends React.Component {
+    logout =() => {
+        localStorage.clear();
+        this.props.history.push('/');
+    };
     render() {
+        const id = localStorage.getItem('PrensaUserIdAdmin');
         return(
             <Drawer
             open
@@ -30,12 +35,22 @@ class DrawerApp extends React.Component {
                     <MenuItemGroup key="g3" title="Torneo">
                         <Menu.Item key="4"><Link to="/add">+ Agregar Partido</Link></Menu.Item>
                     </MenuItemGroup>
+                    {id &&
+                    <MenuItemGroup key="g5" title="Sistema">
+                        <Menu.Item key="5"><a onClick={this.logout}>Cerrar sesión</a></Menu.Item>
+                    </MenuItemGroup>
+                    }
                 </SubMenu>
             </Menu>
         </Drawer>);
     }
 }
 
+DrawerApp.propTypes = {
+    history: React.PropTypes.object.isRequired
+};
 const ShowTheLocationWithRouter = withRouter(DrawerApp);
+
 export default ShowTheLocationWithRouter;
+
 

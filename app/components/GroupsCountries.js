@@ -23,7 +23,7 @@ class QuinielaGroups extends React.Component {
     increase = () => {
         const count = this.state.count + 1;
         this.setState({ count });
-    }
+    };
 
     decline = () => {
         let count = this.state.count - 1;
@@ -31,12 +31,12 @@ class QuinielaGroups extends React.Component {
             count = 0;
         }
         this.setState({ count });
-    }
+    };
     // Country 2
     increase2 = () => {
         const count2 = this.state.count2 + 1;
         this.setState({ count2 });
-    }
+    };
 
     decline2 = () => {
         let count2 = this.state.count2 - 1;
@@ -44,7 +44,7 @@ class QuinielaGroups extends React.Component {
             count2 = 0;
         }
         this.setState({ count2 });
-    }
+    };
     render() {
         return (
                 <Row style={styleRow}>

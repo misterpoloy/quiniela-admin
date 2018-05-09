@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Card, Button, Tabs, Input} from 'antd';
+import { Card, Button, Tabs, Input, notification} from 'antd';
 const TabPane = Tabs.TabPane;
 const { TextArea } = Input;
 
@@ -9,6 +9,21 @@ class SuperQuinielasContainer extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
+    componentDidMount() {
+        const token = localStorage.getItem('PrensaTokenAdmin');
+        const id = localStorage.getItem('PrensaUserIdAdmin');
+        if (!token || token === 'Token invalido' || !id) {
+            this.updateToken();
+        }
+    }
+    updateToken = () => {
+        notification.error({
+            message: 'Necesitas iniciar sesión',
+            description: 'Para poder acceder a todas las funcnioes de la Quiniela primero debes de iniciar sesión.',
+            placement: 'bottomRight'
+        });
+        this.props.history.push('/');
+    };
     handleClick() {
         // this.props.history.push('/create');
     }

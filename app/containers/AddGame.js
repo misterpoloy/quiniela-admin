@@ -1,55 +1,80 @@
 import React from 'react';
-import { Card, Button, Icon, Tabs, List, Modal} from 'antd';
-const confirm = Modal.confirm;
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+// util
+const _ = require('lodash');
+
+// Actions
+import {
+    getAllGamesByGroups,
+    getQuinielaStructures,
+    getGroupList
+} from '../actions/settings';
+
+// Design
+import { Card, Button, Icon, Tabs, List, notification} from 'antd';
 import { CardMedia, CardTitle} from 'material-ui/Card';
 import bannerSource from '../src/images/banner.png';
 const TabPane = Tabs.TabPane;
-import QuinielaGroups from '../components/GroupsCountries';
+import QuinielaGroups from '../components/QuinielaGroups';
 
 class AddGame extends React.Component {
     constructor() {
         super();
-        this.state = {
-            countries: [
-                {
-                    country1: { code: 'usa', name: 'United States'},
-                    country2: { code: 'NIC', name: 'Nicaragua'},
-                },
-                {
-                    country1: { code: 'NER', name: 'Nigeria'},
-                    country2: { code: 'ECU', name: 'Ecuador'},
-                },
-                {
-                    country1: { code: 'UGA', name: 'Uganda'},
-                    country2: { code: 'LUX', name: 'Luxemburgo'},
-                },
-                {
-                    country1: { code: 'CAN', name: 'Canada'},
-                    country2: { code: 'SWE', name: 'Suecia'},
-                }
-            ]
-        };
     }
+    componentDidMount() {
+        const { getAllGamesByGroupsAction, getStructures, getByGroup } = this.props.actions;
+        const token = localStorage.getItem('PrensaTokenAdmin');
+        const id = localStorage.getItem('PrensaUserIdAdmin');
+        if (!token || token === 'Token invalido' || !id) {
+            this.updateToken();
+        } else {
+            getAllGamesByGroupsAction();
+            getByGroup();
+            getStructures();
+        }
+    }
+    updateToken = () => {
+        notification.error({
+            message: 'Necesitas iniciar sesión',
+            description: 'Para poder acceder a todas las funcnioes de la Quiniela primero debes de iniciar sesión.',
+            placement: 'bottomRight'
+        });
+        this.props.history.push('/');
+    };
+    renderFases = () => {
+        const { quinielaStructures, CountriesByGroup } = this.props;
+        const fasesState = ['grupos', 'octavos', 'cuartos', 'semiFinales', 'tercer', 'final'];
 
-    showDeleteConfirm() {
-        confirm({
-            title: '¿Seguro que desea eliminar la quiniela?',
-            content: 'Esta acción no puede ser deshecha',
-            okText: 'eliminar',
-            okType: 'danger',
-            cancelText: 'cancelar',
-            onOk() {
-                // console.log('OK');
-            },
-            onCancel() {
-                // console.log('Cancel');
-            },
+        let i = 0;
+        const Cards = _.map(quinielaStructures, fase => {
+            const currentProp = fasesState[i];
+            const currentFaseProps = this.props[currentProp];
+
+            const data = currentFaseProps.map((juego) => {
+                return (
+                    <QuinielaGroups
+                        CountriesByGroup={CountriesByGroup}
+                        game={juego}
+                    />
+                );
+            });
+            i++;
+            return (
+                <Card type="inner" title={'Fase de ' + fase.NOMBRE}>
+                    <List
+                        bordered
+                        dataSource={data}
+                        locale={{ emptyText: 'Cargando paises, banderas y opciones. Por favor espera...' }}
+                        renderItem={item => (<List.Item>{item}</List.Item>)}
+                    />
+                </Card>
+            );
         });
-    }
+        return Cards;
+    };
     render() {
-        const data = this.state.countries.map((countries) => {
-            return <QuinielaGroups country1={countries.country1} country2={countries.country2} />;
-        });
         return (
             <div>
                 <CardMedia
@@ -59,18 +84,8 @@ class AddGame extends React.Component {
                 <Card>
                     <Tabs defaultActiveKey="1">
                         <TabPane tab={<span><Icon type="profile" />Subir resultados</span>} key="1">
-                            <Card
-                                type="inner"
-                                title="Fase de grupos"
-                            >
-                                <List
-                                    bordered
-                                    dataSource={data}
-                                    renderItem={item => (<List.Item>{item}</List.Item>)}
-                                />
-                                <div style={{ margin: '24px 0' }} />
-                                <Button type="primary">Actualizar resultados</Button>
-                            </Card>
+                            { this.renderFases() }
+                            <Button type="primary">Enviar notificación de cambios</Button>
                         </TabPane>
                     </Tabs>
                 </Card>
@@ -79,5 +94,34 @@ class AddGame extends React.Component {
     }
 }
 
-export default AddGame;
+AddGame.propTypes = {
+    actions: React.PropTypes.object.isRequired,
+    quinielaStructures: React.PropTypes.array.isRequired,
+    CountriesByGroup: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired
+};
+function mapStateToProps(state) {
+    return({
+        grupos: state.settings.grupos,
+        octavos: state.settings.octavos,
+        cuartos: state.settings.cuartos,
+        semiFinales: state.settings.semiFinales,
+        CountriesByGroup: state.settings.countriesByGroup,
+        quinielaStructures: state.settings.quinielaStructures,
+        tercer: state.settings.tercer,
+        final: state.settings.final,
+    });
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({
+            getAllGamesByGroupsAction: getAllGamesByGroups,
+            getByGroup: getGroupList,
+            getStructures: getQuinielaStructures
+        }, dispatch)
+    };
+}
+const ShowTheLocationWithRouter = withRouter(AddGame);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowTheLocationWithRouter);
 
