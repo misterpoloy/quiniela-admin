@@ -9,14 +9,17 @@ const _ = require('lodash');
 import {
     getAllGamesByGroups,
     getQuinielaStructures,
+    updateGame,
+    sendMassiveEmail,
     getGroupList
 } from '../actions/settings';
 
 // Design
-import { Card, Button, Icon, Tabs, List, notification} from 'antd';
+import { Card, Button, Icon, Tabs, List, notification, Modal } from 'antd';
 import { CardMedia, CardTitle} from 'material-ui/Card';
 import bannerSource from '../src/images/banner.png';
 const TabPane = Tabs.TabPane;
+const confirm = Modal.confirm;
 import QuinielaGroups from '../components/QuinielaGroups';
 
 class AddGame extends React.Component {
@@ -35,6 +38,9 @@ class AddGame extends React.Component {
             getStructures();
         }
     }
+    shouldComponentUpdate(nextProps) {
+        return this.props !== nextProps;
+    }
     updateToken = () => {
         notification.error({
             message: 'Necesitas iniciar sesión',
@@ -42,6 +48,35 @@ class AddGame extends React.Component {
             placement: 'bottomRight'
         });
         this.props.history.push('/');
+    };
+    saveGameAction = body => {
+        const { updateGameAction } = this.props.actions;
+        confirm({
+            title: '¿Estás seguro que actualizar los resultados para este partido?',
+            content: 'Esto actualizará la tabla de posiciones de todas las quinielas.',
+            okText: 'Si, actualizar',
+            cancelText: 'No',
+            onOk() {
+                notification.success({
+                    message: 'Partido actualizado',
+                    placement: 'bottomRight',
+                    description: 'El marcador para este partido ha sido actualizado.',
+                });
+                updateGameAction(body.ID, body);
+            }
+        });
+    };
+    sendNotification = () => {
+        const { sendMassiveEmailAction } = this.props.actions;
+        confirm({
+            title: '¿Estás seguro que deseas enviar la notificación masiva?',
+            content: 'Este mensaje enviará un correo electrónico a todos los usuarios registrados en la quiniela mundialista notificando que se han actualizado los resultados de los partidos',
+            okText: 'Si, enviar',
+            cancelText: 'No',
+            onOk() {
+                sendMassiveEmailAction();
+            }
+        });
     };
     renderFases = () => {
         const { quinielaStructures, CountriesByGroup } = this.props;
@@ -55,6 +90,7 @@ class AddGame extends React.Component {
             const data = currentFaseProps.map((juego) => {
                 return (
                     <QuinielaGroups
+                        saveGameAction={this.saveGameAction}
                         CountriesByGroup={CountriesByGroup}
                         game={juego}
                     />
@@ -85,7 +121,7 @@ class AddGame extends React.Component {
                     <Tabs defaultActiveKey="1">
                         <TabPane tab={<span><Icon type="profile" />Subir resultados</span>} key="1">
                             { this.renderFases() }
-                            <Button type="primary">Enviar notificación de cambios</Button>
+                            <Button onClick={this.sendNotification} type="primary">Enviar notificación de cambios</Button>
                         </TabPane>
                     </Tabs>
                 </Card>
@@ -117,6 +153,8 @@ function mapDispatchToProps(dispatch) {
         actions: bindActionCreators({
             getAllGamesByGroupsAction: getAllGamesByGroups,
             getByGroup: getGroupList,
+            sendMassiveEmailAction: sendMassiveEmail,
+            updateGameAction: updateGame,
             getStructures: getQuinielaStructures
         }, dispatch)
     };

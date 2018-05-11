@@ -19,36 +19,58 @@ const esatdioStyle = {
 };
 
 class QuinielaGroups extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            count: 0,
-            count2: 0,
+            GOLES_1: props.game.GOLES_1 || 0,
+            GOLES_2: props.game.GOLES_2 || 0,
             JUEGO_1: null,
             JUEGO_2: null,
             show: true,
         };
     }
     updateGame = () => {
-        const { addGame, game, quinielaId, userId } = this.props;
-        const { count, count2, JUEGO_1, JUEGO_2 } = this.state;
+        const { game } = this.props;
+        const { GOLES_1, GOLES_2, JUEGO_1, JUEGO_2 } = this.state;
 
         const predictionID = game.ID;
         const jugador1ID = game.JUGADOR_1.NOMBRE !== 'null' ? game.JUGADOR_1.ID : JUEGO_1;
         const jugador2ID = game.JUGADOR_2.NOMBRE !== 'null' ? game.JUGADOR_2.ID : JUEGO_2;
 
         const prediction = {
-            [predictionID]: {
-                JUEGO: predictionID,
-                QUINIELA: quinielaId,
-                USUARIO: userId,
-                GOL_1: count,
-                GOL_2: count2,
-                JUEGO_1: jugador1ID,
-                JUEGO_2: jugador2ID
-            }
+            ID: predictionID,
+            GOLES_1,
+            GOLES_2,
+            JUGADOR_1: jugador1ID,
+            JUGADOR_2: jugador2ID
         };
-        addGame(prediction);
+        this.setState(() => ({ prediction }));
+    };
+    saveGame = () => {
+        const { saveGameAction } = this.props;
+        const { prediction } = this.state;
+        const { game } = this.props;
+        const { JUGADOR_1, JUGADOR_2} = game;
+        if (!prediction) {
+            if (JUGADOR_1.NOMBRE === 'null' || JUGADOR_2.NOMBRE === 'null') {
+                message.error('Tienes que ingresar todos los paises');
+            } else {
+                const gruposZero = {
+                    ID: game.ID,
+                    GOLES_1: 0,
+                    GOLES_2: 0,
+                    JUGADOR_1: game.JUGADOR_1.ID,
+                    JUGADOR_2: game.JUGADOR_2.ID
+                };
+                saveGameAction(gruposZero);
+            }
+        } else {
+            if (!prediction.JUGADOR_1 || !prediction.JUGADOR_2) {
+                message.error('Uno de los dos paises es indefinido');
+            } else {
+                saveGameAction(prediction);
+            }
+        }
     };
     increase = () => {
         const { game } = this.props;
@@ -60,8 +82,8 @@ class QuinielaGroups extends React.Component {
             return;
         }
 
-        const count = this.state.count + 1;
-        this.setState({ count }, () => {
+        const GOLES_1 = this.state.GOLES_1 + 1;
+        this.setState({ GOLES_1 }, () => {
             this.updateGame();
         });
     };
@@ -74,11 +96,11 @@ class QuinielaGroups extends React.Component {
             message.error('Tienes que ingresar el pais uno primero');
             return;
         }
-        let count = this.state.count - 1;
-        if (count < 0) {
-            count = 0;
+        let GOLES_1 = this.state.GOLES_1 - 1;
+        if (GOLES_1 < 0) {
+            GOLES_1 = 0;
         }
-        this.setState({ count }, () => {
+        this.setState({ GOLES_1 }, () => {
             this.updateGame();
         });
     };
@@ -92,8 +114,8 @@ class QuinielaGroups extends React.Component {
             message.error('Tienes que ingresar el pais dos primero');
             return;
         }
-        const count2 = this.state.count2 + 1;
-        this.setState({ count2 }, () => {
+        const GOLES_2 = this.state.GOLES_2 + 1;
+        this.setState({ GOLES_2 }, () => {
             this.updateGame();
         });
     };
@@ -106,11 +128,11 @@ class QuinielaGroups extends React.Component {
             message.error('Tienes que ingresar el pais dos primero');
             return;
         }
-        let count2 = this.state.count2 - 1;
-        if (count2 < 0) {
-            count2 = 0;
+        let GOLES_2 = this.state.GOLES_2 - 1;
+        if (GOLES_2 < 0) {
+            GOLES_2 = 0;
         }
-        this.setState({ count2 }, () => {
+        this.setState({ GOLES_2 }, () => {
             this.updateGame();
         });
     };
@@ -164,16 +186,16 @@ class QuinielaGroups extends React.Component {
         const menu = () => _.map(optionsPerGame, pais => {
             return (
                 <Option key={pais.PAIS} key={pais.PAIS}>
-                    {pais.NOMBRE}
                     <Flag style={{...style, width: 28, marginLeft: 8}} code={pais.ISO} height="20" />
+                    {pais.NOMBRE}
                 </Option>
             );
         });
         const menuRigth = () => _.map(optionsPerGameR, pais => {
             return (
                 <Option key={pais.PAIS} key={pais.PAIS}>
-                    {pais.NOMBRE}
                     <Flag style={{...style, width: 28, marginLeft: 8}} code={pais.ISO} height="20" />
+                    {pais.NOMBRE}
                 </Option>
             );
         });
@@ -185,12 +207,12 @@ class QuinielaGroups extends React.Component {
                             <Col span={8}>
                                 <label style={style}>{game.JUGADOR_1.NOMBRE || 'ADIVINA 1'}</label>
                             </Col>
-                            <Col span={7} offset={7}>
+                            <Col span={7} offset={3}>
                                 <label style={style}>{game.JUGADOR_2.NOMBRE || 'ADIVINA 2'}</label>
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={8}>
+                            <Col span={5}>
                                 <ButtonGroup>
                                     <Button onClick={this.decline}>
                                         <Icon type="minus" />
@@ -200,16 +222,16 @@ class QuinielaGroups extends React.Component {
                                     </Button>
                                 </ButtonGroup>
                                 <Flag style={style} code={game.JUGADOR_1.ISO} height="30" />
-                                <Badge showZero count={this.state.count} />
+                                <Badge showZero count={this.state.GOLES_1} />
                             </Col>
-                            <Col span={4} offset={1}>
+                            <Col span={3} offset={1}>
                                 <div style={{ textAlign: 'center' }}>
                                     <h1 style={{ color: '#d6d6d6', marginTop: -15 }}>VS</h1>
                                     <h4 style={esatdioStyle}>{game.UBICACION.NOMBRE}</h4>
                                     <div>Grupo {game.OPCIONES_DE_SELECCION}</div>
                                 </div>
                             </Col>
-                            <Col span={8} offset={2}>
+                            <Col span={5} offset={2}>
                                 <ButtonGroup>
                                     <Button onClick={this.decline2}>
                                         <Icon type="minus" />
@@ -219,14 +241,17 @@ class QuinielaGroups extends React.Component {
                                     </Button>
                                 </ButtonGroup>
                                 <Flag style={style} code={game.JUGADOR_2.ISO} height="30" />
-                                <Badge showZero count={this.state.count2} />
+                                <Badge showZero count={this.state.GOLES_2} />
+                            </Col>
+                            <Col span={2}>
+                                <Button onClick={this.saveGame} type="primary">Actualizar resultado</Button>
                             </Col>
                         </Row>
                     </div>
                 ) : (
                     <div>
                         <Row>
-                            <Col span={10}>
+                            <Col span={7}>
                                 <Select onChange={this.selecCountry1} style={{ width: 150, marginRigth: 5 }}>
                                     { menu() }
                                 </Select>
@@ -238,16 +263,16 @@ class QuinielaGroups extends React.Component {
                                         <Icon type="plus" />
                                     </Button>
                                 </ButtonGroup>
-                                <Badge showZero count={this.state.count} />
+                                <Badge showZero count={this.state.GOLES_1} />
                             </Col>
-                            <Col span={2}>
+                            <Col span={3}>
                                 <div style={{ textAlign: 'center' }}>
                                     <h1 style={{ color: '#d6d6d6', marginTop: -15 }}>VS</h1>
                                     <h4 style={esatdioStyle}>{game.UBICACION.NOMBRE}</h4>
                                     {/** options <div>{game.OPCIONES_DE_SELECCION || ''}</div> **/}
                                 </div>
                             </Col>
-                            <Col span={10} offset={2}>
+                            <Col span={7} offset={2}>
                                 <Select onChange={this.selecCountry2} style={{ width: 150, marginRigth: 5 }}>
                                     { menuRigth() }
                                 </Select>
@@ -259,7 +284,10 @@ class QuinielaGroups extends React.Component {
                                         <Icon type="plus" />
                                     </Button>
                                 </ButtonGroup>
-                                <Badge showZero count={this.state.count2} />
+                                <Badge showZero count={this.state.GOLES_2} />
+                            </Col>
+                            <Col span={2}>
+                                <Button onClick={this.saveGame} type="primary">Actualizar resultado</Button>
                             </Col>
                         </Row>
                     </div>
@@ -271,9 +299,7 @@ class QuinielaGroups extends React.Component {
 }
 QuinielaGroups.propTypes = {
     game: React.PropTypes.object.isRequired,
-    addGame: React.PropTypes.func.isRequired,
-    quinielaId: React.PropTypes.string.isRequired,
-    CountriesByGroup: React.PropTypes.object.isRequired,
-    userId: React.PropTypes.string.isRequired
+    saveGameAction: React.PropTypes.func.isRequired,
+    CountriesByGroup: React.PropTypes.object.isRequired
 };
 export default QuinielaGroups;

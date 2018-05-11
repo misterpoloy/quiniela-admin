@@ -3,6 +3,14 @@ import { withRouter } from 'react-router';
 import { Card, Button, Tabs, Input, notification} from 'antd';
 const TabPane = Tabs.TabPane;
 const { TextArea } = Input;
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+// Actions
+import {
+    updateSuperQuiniela,
+    getSuperQuiniela
+} from '../actions/settings';
 
 class SuperQuinielasContainer extends React.Component {
     constructor(props) {
@@ -10,10 +18,16 @@ class SuperQuinielasContainer extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount() {
+        const { getAllGamesByGroupsAction, getSuperQuinielaAction, getStructures, getByGroup } = this.props.actions;
         const token = localStorage.getItem('PrensaTokenAdmin');
         const id = localStorage.getItem('PrensaUserIdAdmin');
         if (!token || token === 'Token invalido' || !id) {
             this.updateToken();
+        } else {
+            getAllGamesByGroupsAction();
+            getByGroup();
+            getSuperQuinielaAction();
+            getStructures();
         }
     }
     updateToken = () => {
@@ -59,10 +73,23 @@ class SuperQuinielasContainer extends React.Component {
 }
 
 SuperQuinielasContainer.propTypes = {
+    actions: React.PropTypes.object.isRequired,
     history: React.PropTypes.object.isRequired
 };
-
+function mapStateToProps(state) {
+    return({
+        superQuiniela: state.settings.superQuiniela
+    });
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({
+            getSuperQuinielaAction: getSuperQuiniela,
+            updateSuperQuinielaAction: updateSuperQuiniela,
+        }, dispatch)
+    };
+}
 const ShowTheLocationWithRouter = withRouter(SuperQuinielasContainer);
 
-export default ShowTheLocationWithRouter;
+export default connect(mapStateToProps, mapDispatchToProps)(ShowTheLocationWithRouter);
 

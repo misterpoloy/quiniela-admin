@@ -8,6 +8,7 @@ const initialState = {
     octavos: [],
     cuartos: [],
     semiFinales: [],
+    superQuiniela: null,
     tercer: [],
     final: []
 };

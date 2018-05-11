@@ -3,6 +3,15 @@ import { withRouter } from 'react-router';
 import { Card, Button, Tabs, List, Input, Select, notification} from 'antd';
 const TabPane = Tabs.TabPane;
 import Flag from 'react-world-flags';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+// Actions
+import {
+    createGroup,
+    removeGroup,
+    addGroup
+} from '../actions/settings';
 
 const InputGroup = Input.Group;
 const Option = Select.Option;
@@ -25,10 +34,15 @@ class GroupsContainer extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount() {
+        const { getAllGamesByGroupsAction, getStructures, getByGroup } = this.props.actions;
         const token = localStorage.getItem('PrensaTokenAdmin');
         const id = localStorage.getItem('PrensaUserIdAdmin');
         if (!token || token === 'Token invalido' || !id) {
             this.updateToken();
+        } else {
+            getAllGamesByGroupsAction();
+            getByGroup();
+            getStructures();
         }
     }
     updateToken = () => {
@@ -89,10 +103,23 @@ class GroupsContainer extends React.Component {
 }
 
 GroupsContainer.propTypes = {
+    actions: React.PropTypes.object.isRequired,
     history: React.PropTypes.object.isRequired
 };
-
+function mapStateToProps(state) {
+    return({
+        groupsStructure: state.settings.groupsStructure
+    });
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({
+            getAllGroupsStructureAction: createGroup,
+            removeGroupAction: removeGroup,
+            addGroupAction: addGroup,
+        }, dispatch)
+    };
+}
 const ShowTheLocationWithRouter = withRouter(GroupsContainer);
 
-export default ShowTheLocationWithRouter;
-
+export default connect(mapStateToProps, mapDispatchToProps)(ShowTheLocationWithRouter);

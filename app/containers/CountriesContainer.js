@@ -3,6 +3,15 @@ import { withRouter } from 'react-router';
 import { Card, Button, Tabs, List, Input, Alert, notification} from 'antd';
 const TabPane = Tabs.TabPane;
 import Flag from 'react-world-flags';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+// Actions
+import {
+    getGroupList,
+    addNewCountry,
+    removeNewCountry
+} from '../actions/settings';
 
 const style = {
     margin: '5px'
@@ -22,10 +31,13 @@ class CountriesContainer extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidMount() {
+        const { getGroupListAction } = this.props.actions;
         const token = localStorage.getItem('PrensaTokenAdmin');
         const id = localStorage.getItem('PrensaUserIdAdmin');
         if (!token || token === 'Token invalido' || !id) {
             this.updateToken();
+        } else {
+            getGroupListAction();
         }
     }
     updateToken = () => {
@@ -80,10 +92,24 @@ class CountriesContainer extends React.Component {
 }
 
 CountriesContainer.propTypes = {
+    actions: React.PropTypes.object.isRequired,
     history: React.PropTypes.object.isRequired
 };
-
+function mapStateToProps(state) {
+    return({
+        getCountries: state.settings.getCountries
+    });
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({
+            addNewCountryAction: addNewCountry,
+            removeNewCountryAction: removeNewCountry,
+            getGroupListAction: getGroupList,
+        }, dispatch)
+    };
+}
 const ShowTheLocationWithRouter = withRouter(CountriesContainer);
 
-export default ShowTheLocationWithRouter;
+export default connect(mapStateToProps, mapDispatchToProps)(ShowTheLocationWithRouter);
 

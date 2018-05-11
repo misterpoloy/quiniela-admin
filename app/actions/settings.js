@@ -54,7 +54,79 @@ export function setQuinielaStructures(quinielaStructures) {
     };
 }
 /** ACTIONS **/
-// COUNSTRIES_BY_GROUP
+// #SlEEP
+
+export function sendMassiveEmail() {
+    return () => {
+        API.get('user/send/email')
+            .then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.log('Error "sendMassiveEmail": ' + e);
+            });
+    };
+}
+
+export function createGroup(gamesId, bodyPrediction) {
+    return () => {
+        API.post(`game/${gamesId}`, [
+            ...bodyPrediction
+        ])
+            .then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.log('Error sendPrediction": ' + e);
+            });
+    };
+}
+export function addGroup(gamesId, bodyPrediction) {
+    return () => {
+        API.post(`game/${gamesId}`, [
+            ...bodyPrediction
+        ])
+            .then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.log('Error sendPrediction": ' + e);
+            });
+    };
+}
+export function removeGroup() {
+    return () => {
+        API.get('user/sendmail')
+            .then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.log('Error "sendMassiveEmail": ' + e);
+            });
+    };
+}
+
+export function updateSuperQuiniela(gamesId, bodyPrediction) {
+    return () => {
+        API.patch(`game/${gamesId}`, [
+            ...bodyPrediction
+        ])
+            .then(response => {
+                console.log(response);
+            }).catch(e => {
+                console.log('Error sendPrediction": ' + e);
+            });
+    };
+}
+export function getSuperQuiniela() {
+    return dispatch => {
+        API.get('countries_groups/')
+            .then(countriesByGroup => {
+                dispatch(setQuinielaByGroups(countriesByGroup.data));
+            }).catch(e => {
+                console.log('Error "getGroupList": ' + e);
+            });
+    };
+}
+// #SLEEP
+
+// COUNTRIES CONTAINER:
 export function getGroupList() {
     return dispatch => {
         API.get('countries_groups/')
@@ -62,6 +134,40 @@ export function getGroupList() {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
             }).catch(e => {
                 console.log('Error "getGroupList": ' + e);
+            });
+    };
+}
+export function addNewCountry() {
+    return dispatch => {
+        API.get('countries_groups/')
+            .then(countriesByGroup => {
+                dispatch(setQuinielaByGroups(countriesByGroup.data));
+            }).catch(e => {
+                console.log('Error "getGroupList": ' + e);
+            });
+    };
+}
+export function removeNewCountry() {
+    return dispatch => {
+        API.get('countries_groups/')
+            .then(countriesByGroup => {
+                dispatch(setQuinielaByGroups(countriesByGroup.data));
+            }).catch(e => {
+                console.log('Error "getGroupList": ' + e);
+            });
+    };
+}
+// PATCH_UPDATE_GAME
+export function updateGame(gamesId, bodyPrediction) {
+    return () => {
+        API.patch(`game/${gamesId}`, {...bodyPrediction})
+            .then(response => {
+                console.log('data:');
+                console.log(bodyPrediction);
+                console.log('response:');
+                console.log(response.data);
+            }).catch(e => {
+                console.log('Error sendPrediction": ' + e);
             });
     };
 }

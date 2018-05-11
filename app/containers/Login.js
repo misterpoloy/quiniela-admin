@@ -9,6 +9,7 @@ import { login } from './../actions/authAdmin';
 // Design
 import { Form, Icon, Input, Button, Row, Col } from 'antd';
 const FormItem = Form.Item;
+import prensaimg from '../src/images/prensalibre.png';
 
 const esRequerido = 'Esto es obligatorio';
 
@@ -45,9 +46,9 @@ class Welcome extends React.Component {
         return (
             <div style={{ background: '#FFF' }}>
                 <Row>
-                    <Col span={8} offset={8}>
+                    <Col xs={{ span: 24, offset: 0 }} lg={{ span: 8, offset: 12 }}>
                         <Row>
-                            <Col span={12} offset={8}>
+                            <Col xs={{ span: 24, offset: 0 }} lg={{ span: 12, offset: 8 }}>
                                 <h1 style={{ marginTop: 200, fontWeight: 300 }} >Iniciar sesión</h1>
                             </Col>
                         </Row>
@@ -75,6 +76,11 @@ class Welcome extends React.Component {
                                 </Button>
                             </FormItem>
                         </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={6} offset={15} style={{ marginTop: 200 }}>
+                        <img src={prensaimg} alt="Prensa Libre"/>
                     </Col>
                 </Row>
             </div>

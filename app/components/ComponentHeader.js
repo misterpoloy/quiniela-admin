@@ -17,11 +17,14 @@ class ComponentHeader extends React.Component {
     }
 
     render() {
+        const id = localStorage.getItem('PrensaUserIdAdmin');
         return (
             <div>
+                { id &&
                 <AppBar
                     style={{backgroundColor: this.props.theme.primary1Color, position: 'fixed'}}
                     title={<span style={styles.title}>Quiniela 2018</span>} />
+                }
             </div>
         );
     }
