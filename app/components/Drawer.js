@@ -30,13 +30,13 @@ class DrawerApp extends React.Component {
                     >
                         <SubMenu key="sub1" title={<span><Icon type="setting" /><span>Configuración general</span></span>}>
                             <MenuItemGroup key="g1" title="Estructura">
-                                <Menu.Item key="1"><Link to="/countries">Paises</Link></Menu.Item>
-                                <Menu.Item key="2"><Link to="/groups">Grupos</Link></Menu.Item>
+                                <Menu.Item disabled key="1"><Link to="/countries">Paises</Link></Menu.Item>
+                                <Menu.Item disabled key="2"><Link to="/groups">Grupos</Link></Menu.Item>
                             </MenuItemGroup>
-                            <MenuItemGroup key="g2" title="Plataforma">
-                                <Menu.Item key="3"><Link to="/super">Super Quiniela</Link></Menu.Item>
+                            <MenuItemGroup disabled key="g2" title="Plataforma">
+                                <Menu.Item disabled key="3"><Link to="/super">Super Quiniela</Link></Menu.Item>
                             </MenuItemGroup>
-                            <MenuItemGroup key="g3" title="Torneo">
+                            <MenuItemGroup disabled key="g3" title="Torneo">
                                 <Menu.Item key="4"><Link to="/add">+ Agregar Partido</Link></Menu.Item>
                             </MenuItemGroup>
                             <MenuItemGroup key="g5" title="Sistema">
@@ -45,7 +45,9 @@ class DrawerApp extends React.Component {
                         </SubMenu>
                     </Menu>
                     }
-                    <img src={prensaimg} alt="Prensa Libre"/>
+                    {!id &&
+                        <img src={prensaimg} alt="Prensa Libre"/>
+                    }
                 </Drawer>
             </div>
         );
