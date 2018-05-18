@@ -116,7 +116,7 @@ export function updateSuperQuiniela(gamesId, bodyPrediction) {
 }
 export function getSuperQuiniela() {
     return dispatch => {
-        API.get('countries_groups/')
+        API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
             }).catch(e => {
@@ -129,7 +129,7 @@ export function getSuperQuiniela() {
 // COUNTRIES CONTAINER:
 export function getGroupList() {
     return dispatch => {
-        API.get('countries_groups/')
+        API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
             }).catch(e => {
@@ -139,7 +139,7 @@ export function getGroupList() {
 }
 export function addNewCountry() {
     return dispatch => {
-        API.get('countries_groups/')
+        API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
             }).catch(e => {
@@ -149,7 +149,7 @@ export function addNewCountry() {
 }
 export function removeNewCountry() {
     return dispatch => {
-        API.get('countries_groups/')
+        API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
             }).catch(e => {
@@ -174,7 +174,7 @@ export function updateGame(gamesId, bodyPrediction) {
 // GET_QUINIELA_STRUCTURES
 export function getQuinielaStructures() {
     return dispatch => {
-        API.get('structure/')
+        API.get('structure')
             .then(response => {
                 dispatch(setQuinielaStructures(response.data));
             }).catch(e => {

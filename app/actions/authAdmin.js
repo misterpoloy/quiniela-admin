@@ -17,7 +17,7 @@ export function setError(isError) {
 // POST_LOGIN
 export function login(body) {
     return dispatch => {
-        API.post('login/', {
+        API.post('login', {
             ...body
         })
             .then(response => {
