@@ -21,7 +21,6 @@ export function login(body) {
             ...body
         })
             .then(response => {
-                console.log(response);
                 if (response.data.status === 'fail') {
                     dispatch(setError(true));
                 } else {
@@ -30,8 +29,7 @@ export function login(body) {
                     localStorage.setItem('PrensaUserIdAdmin', user.id);
                     dispatch(setAuth(true));
                 }
-            }).catch(e => {
-                console.log('Error login": ' + e);
+            }).catch(() => {
                 dispatch(setError(true));
             });
     };

@@ -59,10 +59,10 @@ export function setQuinielaStructures(quinielaStructures) {
 export function sendMassiveEmail() {
     return () => {
         API.get('user/send/email')
-            .then(response => {
-                console.log(response);
-            }).catch(e => {
-                console.log('Error "sendMassiveEmail": ' + e);
+            .then(() => {
+                // console.log(response);
+            }).catch(() => {
+                // console.log('Error "sendMassiveEmail": ' + e);
             });
     };
 }
@@ -72,10 +72,10 @@ export function createGroup(gamesId, bodyPrediction) {
         API.post(`game/${gamesId}`, [
             ...bodyPrediction
         ])
-            .then(response => {
-                console.log(response);
-            }).catch(e => {
-                console.log('Error sendPrediction": ' + e);
+            .then(() => {
+                // console.log(response);
+            }).catch(() => {
+                // console.log('Error sendPrediction": ' + e);
             });
     };
 }
@@ -84,20 +84,20 @@ export function addGroup(gamesId, bodyPrediction) {
         API.post(`game/${gamesId}`, [
             ...bodyPrediction
         ])
-            .then(response => {
-                console.log(response);
-            }).catch(e => {
-                console.log('Error sendPrediction": ' + e);
+            .then(() => {
+                // console.log(response);
+            }).catch(() => {
+                // console.log('Error sendPrediction": ' + e);
             });
     };
 }
 export function removeGroup() {
     return () => {
         API.get('user/sendmail')
-            .then(response => {
-                console.log(response);
-            }).catch(e => {
-                console.log('Error "sendMassiveEmail": ' + e);
+            .then(() => {
+                // console.log(response);
+            }).catch(() => {
+                // console.log('Error "sendMassiveEmail": ' + e);
             });
     };
 }
@@ -107,10 +107,10 @@ export function updateSuperQuiniela(gamesId, bodyPrediction) {
         API.patch(`game/${gamesId}`, [
             ...bodyPrediction
         ])
-            .then(response => {
-                console.log(response);
-            }).catch(e => {
-                console.log('Error sendPrediction": ' + e);
+            .then(() => {
+                // console.log(response);
+            }).catch(() => {
+                // console.log('Error sendPrediction": ' + e);
             });
     };
 }
@@ -119,8 +119,8 @@ export function getSuperQuiniela() {
         API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
-            }).catch(e => {
-                console.log('Error "getGroupList": ' + e);
+            }).catch(() => {
+                // console.log('Error "getGroupList": ' + e);
             });
     };
 }
@@ -132,8 +132,8 @@ export function getGroupList() {
         API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
-            }).catch(e => {
-                console.log('Error "getGroupList": ' + e);
+            }).catch(() => {
+                // console.log('Error "getGroupList": ' + e);
             });
     };
 }
@@ -142,8 +142,8 @@ export function addNewCountry() {
         API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
-            }).catch(e => {
-                console.log('Error "getGroupList": ' + e);
+            }).catch(() => {
+                // console.log('Error "getGroupList": ' + e);
             });
     };
 }
@@ -152,8 +152,8 @@ export function removeNewCountry() {
         API.get('countries_groups')
             .then(countriesByGroup => {
                 dispatch(setQuinielaByGroups(countriesByGroup.data));
-            }).catch(e => {
-                console.log('Error "getGroupList": ' + e);
+            }).catch(() => {
+                // console.log('Error "getGroupList": ' + e);
             });
     };
 }
@@ -161,13 +161,9 @@ export function removeNewCountry() {
 export function updateGame(gamesId, bodyPrediction) {
     return () => {
         API.patch(`game/${gamesId}`, {...bodyPrediction})
-            .then(response => {
-                console.log('data:');
-                console.log(bodyPrediction);
-                console.log('response:');
-                console.log(response.data);
-            }).catch(e => {
-                console.log('Error sendPrediction": ' + e);
+            .then(() => {
+            }).catch(() => {
+                // console.log('Error sendPrediction": ' + e);
             });
     };
 }
@@ -177,8 +173,8 @@ export function getQuinielaStructures() {
         API.get('structure')
             .then(response => {
                 dispatch(setQuinielaStructures(response.data));
-            }).catch(e => {
-                console.log('Error "getQuinielaStructures": ' + e);
+            }).catch(() => {
+                // console.log('Error "getQuinielaStructures": ' + e);
             });
     };
 }
@@ -204,23 +200,23 @@ export function getAllGamesByGroups() {
                                                 API.get('game/estructura/6') // final
                                                     .then(final => {
                                                         dispatch(setFinal(final.data));
-                                                    }).catch(e => {
-                                                        console.log('Error "getAllGamesByGroups 6": ' + e);
+                                                    }).catch(() => {
+                                                        // console.log('Error "getAllGamesByGroups 6": ' + e);
                                                     });
-                                            }).catch(e => {
-                                                console.log('Error "getAllGamesByGroups 5": ' + e);
+                                            }).catch(() => {
+                                                // console.log('Error "getAllGamesByGroups 5": ' + e);
                                             });
-                                    }).catch(e => {
-                                        console.log('Error "getAllGamesByGroups 4": ' + e);
+                                    }).catch(() => {
+                                        // console.log('Error "getAllGamesByGroups 4": ' + e);
                                     });
-                            }).catch(e => {
-                                console.log('Error "getAllGamesByGroups 3": ' + e);
+                            }).catch(() => {
+                                // console.log('Error "getAllGamesByGroups 3": ' + e);
                             });
-                    }).catch(e => {
-                        console.log('Error "getAllGamesByGroups asdasd 2": ' + e);
+                    }).catch(() => {
+                        // console.log('Error "getAllGamesByGroups asdasd 2": ' + e);
                     });
-            }).catch(e => {
-                console.log('Error "getAllGamesByGroups 1": ' + e);
+            }).catch(() => {
+                // console.log('Error "getAllGamesByGroups 1": ' + e);
             });
     };
 }
