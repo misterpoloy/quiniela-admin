@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1eaf503c-36d2-404e-ab40-996499ef9a8b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/app/components/Drawer.js" afterPath="$PROJECT_DIR$/app/components/Drawer.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/components/QuinielaGroups.js" afterPath="$PROJECT_DIR$/app/components/QuinielaGroups.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,14 +18,23 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="QuinielaGroups.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/components/QuinielaGroups.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>data</find>
-      <find>console</find>
-      <find>MenuItemGroup</find>
-      <find>header</find>
       <find>InputGroup</find>
       <find>Invitar</find>
       <find>user</find>
@@ -39,7 +50,6 @@
       <find>actualizar</find>
       <find>game</find>
       <find>addGame</find>
-      <find>QuinielaGroups</find>
       <find>this.state</find>
       <find>badge</find>
       <find>count</find>
@@ -50,6 +60,11 @@
       <find>email</find>
       <find>messa</find>
       <find>message</find>
+      <find>QuinielaGroups</find>
+      <find>vs</find>
+      <find>VS</find>
+      <find>esatdioStyle</find>
+      <find>fecha</find>
     </findStrings>
     <replaceStrings>
       <replace>MainContainer</replace>
@@ -109,10 +124,10 @@
         <option value="$PROJECT_DIR$/app/containers/SuperQuinielasContainer.js" />
         <option value="$PROJECT_DIR$/app/actions/settings.js" />
         <option value="$PROJECT_DIR$/app/containers/AddGame.js" />
-        <option value="$PROJECT_DIR$/app/components/QuinielaGroups.js" />
         <option value="$PROJECT_DIR$/app/components/ComponentHeader.js" />
         <option value="$PROJECT_DIR$/app/containers/Login.js" />
         <option value="$PROJECT_DIR$/app/components/Drawer.js" />
+        <option value="$PROJECT_DIR$/app/components/QuinielaGroups.js" />
       </list>
     </option>
   </component>
@@ -127,9 +142,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
+    <option name="width" value="1240" />
+    <option name="height" value="831" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -149,30 +165,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="react admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react admin" type="462c0819:PsiDirectoryNode" />
+              <item name="quiniela-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quiniela-admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="react admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react admin" type="462c0819:PsiDirectoryNode" />
+              <item name="quiniela-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quiniela-admin" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="react admin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react admin" type="462c0819:PsiDirectoryNode" />
+              <item name="quiniela-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quiniela-admin" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="constants" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="quiniela-admin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quiniela-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,16 +259,20 @@
       <workItem from="1526007017597" duration="1906000" />
       <workItem from="1526070871000" duration="20000" />
       <workItem from="1526402148806" duration="540000" />
+      <workItem from="1530210385951" duration="490000" />
+      <workItem from="1530211238843" duration="672000" />
+      <workItem from="1530221774490" duration="696000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99179000" />
+    <option name="totallyTimeSpent" value="101037000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="22" width="1240" height="831" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22031474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22871453" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -542,24 +568,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/QuinielaGroups.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2856">
-          <caret line="188" column="101" lean-forward="false" selection-start-line="188" selection-start-column="101" selection-end-line="188" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/containers/AddGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -581,9 +593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="51" lean-forward="false" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -591,9 +600,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="71" column="39" lean-forward="false" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -601,7 +607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -609,7 +614,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="71" lean-forward="true" selection-start-line="5" selection-start-column="71" selection-end-line="5" selection-end-column="71" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/containers/AddGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="91" column="35" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="35" />
+          <folding>
+            <element signature="e#357#432#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/QuinielaGroups.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

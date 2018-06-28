@@ -3,6 +3,7 @@ import {Button, Select, Icon, Badge, Row, Col, message} from 'antd';
 const Option = Select.Option;
 const ButtonGroup = Button.Group;
 import Flag from 'react-world-flags'; // Flags
+import moment from 'moment-timezone';
 
 // util
 const _ = require('lodash');
@@ -150,9 +151,11 @@ class QuinielaGroups extends React.Component {
         });
     };
     render() {
-        console.log('render QuinielaGroup()');
         const { game, CountriesByGroup } = this.props;
         const isGroups = (game.JUGADOR_1 && game.JUGADOR_1.NOMBRE !== 'null' );
+
+        const date = moment(game.FECHA).locale('es');
+        const fecha = date.tz('America/Guatemala').format('MMM DD YYYY, h:mm:ss a');
 
         // FlagOptions LEFT
         const optionsPerGame = {};
@@ -269,6 +272,9 @@ class QuinielaGroups extends React.Component {
                                 <div style={{ textAlign: 'center' }}>
                                     <h1 style={{ color: '#d6d6d6', marginTop: -15 }}>VS</h1>
                                     <h4 style={esatdioStyle}>{game.UBICACION.NOMBRE}</h4>
+                                    <div>
+                                        <h4>{fecha}</h4>
+                                    </div>
                                     {/** options <div>{game.OPCIONES_DE_SELECCION || ''}</div> **/}
                                 </div>
                             </Col>
